@@ -5,6 +5,7 @@ namespace ConfigHandler
     public class ConfigValues
     {
         private readonly ConfigValue[] values;
+        public int Length { get; }
 
         public ConfigValues(params string[] keys)
         {
@@ -13,6 +14,7 @@ namespace ConfigHandler
             {
                 values[i] = new ConfigValue(keys[i]);
             }
+            Length = values.Length;
         }
 
         public bool IsAllValuesNotEmpty()
@@ -38,11 +40,6 @@ namespace ConfigHandler
             return indicesOfValue.ToArray();
         }
 
-        public int Lenght()
-        {
-            return values.Length;
-        }
-
         public ConfigValue[] GetValues()
         {
             return values;
@@ -53,7 +50,7 @@ namespace ConfigHandler
             if (index >= 0 && index < values.Length)
                 return values[index];
             else
-                throw new Exception($"{nameof(index)} is not valid");
+                throw new ArgumentException($"{nameof(ConfigValue)} for this index not found", nameof(index));
         }
         public ConfigValue GetValueForKey(string key)
         {
@@ -65,7 +62,7 @@ namespace ConfigHandler
                 }
             }
 
-            throw new Exception($"{nameof(key)} is not valid");
+            throw new ArgumentException($"{nameof(ConfigValue)} for this key not found", nameof(key));
         }
     }
 }
